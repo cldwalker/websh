@@ -1,0 +1,2 @@
+require './websh'
+run Websh
