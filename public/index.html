@@ -12,8 +12,16 @@
       $(document).ready( function(){
           $('#input').readline({
             autocompleteCss: 'css/jquery.ui.autocomplete.css',
-            readlineCss: 'css/jquery.readline.css'
-            //startCompletion: $.ws.nirvanaComplete
+            readlineCss: 'css/jquery.readline.css',
+            startCompletion: function(val) {
+              $.ajax({
+                url: '/autocomplete',
+                data: { input: val },
+                success: function(data) {
+                  $.readline.finishCompletion($.parseJSON(data));
+                }
+              })
+            }
           }).repl({
             resultPrompt: '',
             startMessage: function() { return '$ nirvana' },
