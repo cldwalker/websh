@@ -1,7 +1,6 @@
 require 'sinatra/base'
 #require 'sinatra/synchrony'
-require 'ripl'
-require 'ripl/shell'
+require 'ripl/websh'
 require 'json'
 require 'bond'
 Bond.start
@@ -15,7 +14,8 @@ class Websh < Sinatra::Base
   end
 
   get '/eval' do
-    eval(params[:input]).inspect
+    Ripl.shell.input = params[:input]
+    Ripl.shell.loop_once
   end
 
   get '/autocomplete' do
