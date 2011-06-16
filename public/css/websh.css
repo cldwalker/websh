@@ -1,0 +1,6 @@
+body .websh_exception {
+  color: red;
+}
+body .websh_warning {
+  color: #ffcc00;
+}
