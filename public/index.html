@@ -10,42 +10,48 @@
     <script src='js/jquery.repl.js' type='text/javascript'></script>
     <script type='text/javascript'>
       $(document).ready( function(){
-          $('#input').readline({
-            autocompleteCss: 'css/jquery.ui.autocomplete.css',
-            readlineCss: 'css/jquery.readline.css',
-            startCompletion: function(val) {
-              $.ajax({
-                url: '/autocomplete',
-                data: { input: val },
-                success: function(data) {
-                  $.readline.finishCompletion($.parseJSON(data));
-                },
-                error: function(xhr, msg, error) {
-                  $.repl.log(
-                  "<div class='websh_exception'>An unexpected error occurred while autocompleting</div>"
-                  );
-                }
-              })
-            }
-          }).repl({
-            resultPrompt: '',
-            startMessage: function() { return '$ websh' },
-            spinner: 'images/spinner.gif',
-            loop: function(val) {
-              $.readline.addHistory(val);
-              $.ajax({
-                url: '/eval',
-                data: { input: val },
-                success: function(data) {
-                  $.repl.logResult(data);
-                },
-                error: function(xhr, msg, error) {
-                  $.repl.logResult(
-                  "<div class='websh_exception'>An unexpected error occurred while evaling</div>"
-                  );
-                }
-              });
-            }
+        $('#input').readline({
+          autocompleteCss: 'css/jquery.ui.autocomplete.css',
+          readlineCss: 'css/jquery.readline.css',
+          startCompletion: function(val) {
+            $.ajax({
+              url: '/autocomplete',
+              data: { input: val },
+              success: function(data) {
+                $.readline.finishCompletion($.parseJSON(data));
+              },
+              error: function(xhr, msg, error) {
+                $.repl.log(
+                "<div class='websh_exception'>An unexpected error occurred while autocompleting</div>"
+                );
+              }
+            })
+          }
+        }).repl({
+          resultPrompt: '',
+          startMessage: function() { return '$ websh' },
+          spinner: 'images/spinner.gif',
+          loop: function(val) {
+            $.readline.addHistory(val);
+            $.ajax({
+              url: '/eval',
+              data: { input: val },
+              success: function(data) {
+                $.repl.logResult(data);
+              },
+              error: function(xhr, msg, error) {
+                $.repl.logResult(
+                "<div class='websh_exception'>An unexpected error occurred while evaling</div>"
+                );
+              }
+            });
+          }
+        });
+        $.ajax({
+          url: '/onload',
+          success: function(data) {
+            $.repl.log(data);
+          }
         });
       });
     </script>

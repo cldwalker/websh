@@ -1,2 +1,2 @@
-require './websh'
-run Websh
+require './app'
+run Websh::App
