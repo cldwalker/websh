@@ -1,6 +1,7 @@
 require 'sinatra/base'
 #require 'sinatra/synchrony'
 require 'json'
+$LOAD_PATH << 'lib'
 require 'websh'
 
 class Websh::App < Sinatra::Base
