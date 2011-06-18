@@ -12,8 +12,12 @@ class Websh::App < Sinatra::Base
   end
 
   get '/eval' do
-    Ripl.shell.input = params[:input]
-    Ripl.shell.loop_once
+    sh = Ripl.shell
+    sh.input = params[:input]
+    sh.loop_once
+    unless sh.respond_to?(:buffer) && !sh.buffer.empty?
+      sh.format_result(sh.result)
+    end
   end
 
   get '/autocomplete' do
