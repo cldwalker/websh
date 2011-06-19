@@ -1,15 +1,12 @@
 require 'sinatra/base'
-#require 'sinatra/synchrony'
 require 'json'
-$LOAD_PATH << 'lib'
 require 'websh'
 
 class Websh::App < Sinatra::Base
-  #register Sinatra::Synchrony
   set :public, File.dirname(__FILE__) + '/public'
 
   get '/' do
-    File.read('public/index.html')
+    File.read File.dirname(__FILE__) + '/public/index.html'
   end
 
   get '/eval' do
