@@ -13,4 +13,5 @@ module Ripl::Websh
   def print_result(result) end
 end
 Ripl.config[:readline] = false
+Ripl.config[:web] = true
 Ripl::Shell.include Ripl::Websh

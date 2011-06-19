@@ -1,5 +1,6 @@
 require 'ripl/websh'
 require 'websh/util'
+require 'websh/shell'
 
 module Websh
   class <<self; attr_accessor :on_load_string; end
@@ -14,8 +15,9 @@ module Websh
   end
 end
 
-unless ENV['NO_BEFORE_LOOP']
+unless ENV['WEBSH_NO_START']
   Websh.on_load_string = Websh::Util.capture_all {
     Ripl.start
   }[0,2].inject(&:+)
 end
+Ripl::Shell.include Websh::Shell
