@@ -1,10 +1,9 @@
 require 'ripl/websh'
 require 'websh/util'
 require 'websh/shell'
+require 'websh/runner'
 
 module Websh
-  class <<self; attr_accessor :on_load_string; end
-
   def self.completions(line_buffer)
     input = line_buffer[/([^#{Bond::Readline::DefaultBreakCharacters}]+)$/,1]
     arr = Bond.agent.call(input || line_buffer, line_buffer)
@@ -14,10 +13,3 @@ module Websh
     arr.map {|e| chopped_input + e }
   end
 end
-
-unless ENV['WEBSH_NO_START']
-  Websh.on_load_string = Websh::Util.capture_all {
-    Ripl.start
-  }[0,2].inject(&:+)
-end
-Ripl::Shell.include Websh::Shell
