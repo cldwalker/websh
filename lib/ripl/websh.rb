@@ -10,6 +10,11 @@ module Ripl::Websh
     @input
   end
 
+   def format_error(err)
+    "#{err.class}: #{err.message}\n    " +
+      "#{err.backtrace.take_while {|e| e[/ripl/] }.join("\n    ")}"
+  end
+
   def print_result(result) end
 end
 Ripl.config[:readline] = false
