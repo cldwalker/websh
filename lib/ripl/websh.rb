@@ -1,7 +1,12 @@
 require 'ripl'
 
 module Ripl::Websh
-  def in_loop()
+  def before_loop
+    super
+    (Ripl.config[:hirb] ||= {})[:pager] = false if defined? Hirb
+  end
+
+  def in_loop
     define_singleton_method(:after_loop) { }
   end
 
@@ -10,7 +15,7 @@ module Ripl::Websh
     @input
   end
 
-   def format_error(err)
+  def format_error(err)
     "#{err.class}: #{err.message}\n    " +
       "#{err.backtrace.take_while {|e| e[/ripl/] }.join("\n    ")}"
   end
