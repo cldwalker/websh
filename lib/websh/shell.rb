@@ -15,7 +15,8 @@ module Websh
       stdout, stderr, _ = Util.capture_all { loop_once }
       # multi-line plugins use @buffer
       unless @buffer && !@buffer.empty?
-        Shell.output(stdout, stderr) + format_result(result)
+        Shell.output(stdout, stderr) +
+        (@error_raised ? '' : format_result(result))
       end
     end
   end
