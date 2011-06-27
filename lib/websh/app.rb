@@ -19,6 +19,6 @@ class Websh::App < Sinatra::Base
   end
 
   get '/onload' do
-    Websh::Util.format_output Websh::Runner.on_load_string
+    Websh::Runner.on_load_string
   end
 end

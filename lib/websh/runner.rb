@@ -3,7 +3,8 @@ class Websh::Runner < Ripl::Runner
   self.app = 'websh'
 
   def self.start
-    @on_load_string = Websh::Util.capture_all { super argv: [] }[0,2].inject(&:+)
+    stdout, stderr, _ = Websh::Util.capture_all { super argv: [] }
+    @on_load_string = Websh::Shell.output(stdout, stderr)
     Ripl::Shell.include Websh::Shell
   end
 end
