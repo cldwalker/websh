@@ -16,7 +16,7 @@ module Websh
       # multi-line plugins use @buffer
       unless @buffer && !@buffer.empty?
         Shell.output(stdout, stderr) +
-        (@error_raised ? '' : format_result(result))
+        (@error_raised ? '' : format_result(result).to_s)
       end
     end
   end
