@@ -1,6 +1,6 @@
 Description
 ===========
-A sinatra web shell using [ripl](http://github.com/cldwalker) that deploys on Heroku.
+A sinatra web shell using [ripl](http://github.com/cldwalker/ripl) that deploys on Heroku.
 
 Usage
 =====
@@ -27,7 +27,7 @@ About
 =====
 
 This shell is mostly a sinatra version of [nirvana](http://github.com/cldwalker/nirvana). Thus it
-has the same features: supports multi-line input, provides autocompletion and all other ripl
+has the same features: supports multi-line input, has autocompletion and other ripl
 goodies.
 
 Although this project mostly works, it could use some polish. Pull request away!
